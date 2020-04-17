@@ -18,11 +18,13 @@ def excelToDict(fileloc, sheetNum):
     keys = [sheet.cell(0, col_index).value for col_index in range(sheet.ncols)]
 
     dict_list = []
-    for row_index in range(1, sheet.nrows):
-        d = {keys[col_index]: sheet.cell(row_index, col_index).value
-             for col_index in range(sheet.ncols)}
+    for row in range(1, sheet.nrows):
+        d = {}
+        for column in range(sheet.ncols):
+            d.setdefault(keys[column], sheet.cell(row, column).value)
         dict_list.append(d)
     return dict_list
+
 
 # Excel file with the values the program will fill the template
 excelFile = r"rawdata.xlsx"
